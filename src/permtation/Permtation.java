@@ -10,165 +10,150 @@ package permtation;
  * @author Alaa
  */
 // Java implementation of the approach 
-class permtation 
-{ 
+class permtation {
 
-	// The input array for permutation 
-	private final char Arr[]; 
-private int permutation_record=1;
-	// Index array to store indexes of input array 
-	private int Indexes[]; 
+    // The input array for permutation 
+    private final char Arr[];
+    private int permutation_record = 1;
+    // Index array to store indexes of input array 
+    private int Indexes[];
 
-	// The index of the first "increase" 
-	// in the Index array which is the smallest 
-	// i such that Indexes[i] < Indexes[i + 1] 
-	private int Increase; 
+    // The index of the first "increase" 
+    // in the Index array which is the smallest 
+    // i such that Indexes[i] < Indexes[i + 1] 
+    private int Increase;
 
-	// Constructor 
-	public permtation(char arr[]) 
-	{ 
-		this.Arr = arr; 
-		this.Increase = -1; 
-		this.Indexes = new int[this.Arr.length]; 
-                GetFirst(Indexes);
-	} 
-        private int factorial(int arry_lenth)
-        {
-            int factOfNumber =1;
-            for (int i=1; i<=arry_lenth;i++)
-            {
-            factOfNumber= factOfNumber*i;
-            }
-        return factOfNumber;
+    // Constructor 
+    public permtation(char arr[]) {
+        this.Arr = arr;
+        this.Increase = -1;
+        this.Indexes = new int[this.Arr.length];
+
+    }
+
+    // this function computes possibl number of all possible permutation of a string
+    private int factorial(int arry_lenth) {
+        int factOfNumber = 1;
+        for (int i = 1; i <= arry_lenth; i++) {
+            factOfNumber = factOfNumber * i;
         }
-            
-	// Initialize and output 
-	// the first permutation 
-	public void GetFirst(int [] Indexes) 
-	{ 
+        return factOfNumber;
+    }
+// this function prints out all the possible permutation of a given string 
+    public void getStringPermutations() {
+        GetFirst(Indexes);
+        while (this.HasNext()) {
+            this.GetNext();
+        }
+    }
 
-		// Allocate memory for Indexes array 
-		this.Indexes = new int[this.Arr.length]; 
+    // Initialize and output 
+    // the first permutation 
+    public void GetFirst(int[] Indexes) {
 
-		// Initialize the values in Index array 
-		// from 0 to n - 1 
-		for (int i = 0; i < Indexes.length; ++i) 
-		{ 
-			this.Indexes[i] = i; 
-		} 
+        // Allocate memory for Indexes array 
+        this.Indexes = new int[this.Arr.length];
 
-		// Set the Increase to 0 
-		// since Indexes[0] = 0 < Indexes[1] = 1 
-		this.Increase = 0; 
+        // Initialize the values in Index array 
+        // from 0 to n - 1 
+        for (int i = 0; i < Indexes.length; ++i) {
+            this.Indexes[i] = i;
+        }
 
-		// Output the first permutation 
-                System.out.print("The possiple numer of permutation is: " + this.factorial(Indexes.length) +"\n");
-		this.print(); 
-	} 
+        // Set the Increase to 0 
+        // since Indexes[0] = 0 < Indexes[1] = 1 
+        this.Increase = 0;
 
-	// Function that returns true if it is 
-	// possible to generate the next permutation 
-	public boolean HasNext() 
-	{ 
+        // Output the first permutation 
+        System.out.print("The possiple numer of permutation is: " + this.factorial(Indexes.length) + "\n");
+        this.print();
+    }
 
-		// When Increase is in the end of the array, 
-		// it is not possible to have next one 
-		return this.Increase != (this.Indexes.length - 1); 
-	} 
+    // Function that returns true if it is 
+    // possible to generate the next permutation 
+    public boolean HasNext() {
 
-	// Output the next permutation 
-	public void GetNext() 
-	{ 
+        // When Increase is in the end of the array, 
+        // it is not possible to have next one 
+        return this.Increase != (this.Indexes.length - 1);
+    }
 
-		// Increase is at the very beginning 
-		if (this.Increase == 0) 
-		{ 
+    // Output the next permutation 
+    public void GetNext() {
 
-			// Swap Index[0] and Index[1] 
-			this.Swap(this.Increase, this.Increase + 1); 
+        // Increase is at the very beginning 
+        if (this.Increase == 0) {
 
-			// Update Increase 
-			this.Increase += 1; 
-			while (this.Increase < this.Indexes.length - 1
-				&& this.Indexes[this.Increase] 
-						> this.Indexes[this.Increase + 1]) 
-			{ 
-				++this.Increase; 
-			} 
-		} 
-		else
-		{ 
+            // Swap Index[0] and Index[1] 
+            this.Swap(this.Increase, this.Increase + 1);
 
-			// Value at Indexes[Increase + 1] is greater than Indexes[0] 
-			// no need for binary search, 
-			// just swap Indexes[Increase + 1] and Indexes[0] 
-			if (this.Indexes[this.Increase + 1] > this.Indexes[0]) 
-			{ 
-				this.Swap(this.Increase + 1, 0); 
-			} 
-			else
-			{ 
+            // Update Increase 
+            this.Increase += 1;
+            while (this.Increase < this.Indexes.length - 1
+                    && this.Indexes[this.Increase]
+                    > this.Indexes[this.Increase + 1]) {
+                ++this.Increase;
+            }
+        } else {
 
-				// Binary search to find the greatest value 
-				// which is less than Indexes[Increase + 1] 
-				int start = 0; 
-				int end = this.Increase; 
-				int mid = (start + end) / 2; 
-				int tVal = this.Indexes[this.Increase + 1]; 
-				while (!(this.Indexes[mid]<tVal&& this.Indexes[mid - 1]> tVal)) 
-				{ 
-					if (this.Indexes[mid] < tVal) 
-					{ 
-						end = mid - 1; 
-					} 
-					else
-					{ 
-						start = mid + 1; 
-					} 
-					mid = (start + end) / 2; 
-				} 
+            // Value at Indexes[Increase + 1] is greater than Indexes[0] 
+            // no need for binary search, 
+            // just swap Indexes[Increase + 1] and Indexes[0] 
+            if (this.Indexes[this.Increase + 1] > this.Indexes[0]) {
+                this.Swap(this.Increase + 1, 0);
+            } else {
 
-				// Swap 
-				this.Swap(this.Increase + 1, mid); 
-			} 
+                // Binary search to find the greatest value 
+                // which is less than Indexes[Increase + 1] 
+                int start = 0;
+                int end = this.Increase;
+                int mid = (start + end) / 2;
+                int tVal = this.Indexes[this.Increase + 1];
+                while (!(this.Indexes[mid] < tVal && this.Indexes[mid - 1] > tVal)) {
+                    if (this.Indexes[mid] < tVal) {
+                        end = mid - 1;
+                    } else {
+                        start = mid + 1;
+                    }
+                    mid = (start + end) / 2;
+                }
 
-			// Invert 0 to Increase 
-			for (int i = 0; i <= this.Increase / 2; ++i) 
-			{ 
-				this.Swap(i, this.Increase - i); 
-			} 
+                // Swap 
+                this.Swap(this.Increase + 1, mid);
+            }
 
-			// Reset Increase 
-			this.Increase = 0; 
-		} 
-		this.print(); 
-	} 
+            // Invert 0 to Increase 
+            for (int i = 0; i <= this.Increase / 2; ++i) {
+                this.Swap(i, this.Increase - i);
+            }
 
-	// Function to output the input array 
-	private void print() 
-	{ 
-            StringBuilder permtationBulder = new StringBuilder();
-		for (int i = 0; i < this.Indexes.length; ++i) 
-		{ 
+            // Reset Increase 
+            this.Increase = 0;
+        }
+        this.print();
+    }
 
-			// Indexes of the input array 
-			// are at the Indexes array 
-			permtationBulder.append(this.Arr[this.Indexes[i]]); 
-			
-		} 
-		System.out.println( "["+ permutation_record++ +"]" + permtationBulder.toString()); 
-	} 
+    // Function to output the input array 
+    private void print() {
+        StringBuilder permtationBulder = new StringBuilder();
+        for (int i = 0; i < this.Indexes.length; ++i) {
 
-	// Swap two values in the Indexes array 
-	private void Swap(int src, int dest) 
-	{ 
-		int tmp = this.Indexes[src]; 
-		this.Indexes[src] = this.Indexes[dest]; 
-		this.Indexes[dest] = tmp; 
-	} 
-} 
+            // Indexes of the input array 
+            // are at the Indexes array 
+            permtationBulder.append(this.Arr[this.Indexes[i]]);
 
-// Driver code 
+        }
+        System.out.println("[" + permutation_record++ + "]" + permtationBulder.toString());
+    }
+
+    // Swap two values in the Indexes array 
+    private void Swap(int src, int dest) {
+        int tmp = this.Indexes[src];
+        this.Indexes[src] = this.Indexes[dest];
+        this.Indexes[dest] = tmp;
+    }
+}
+
 
 
 // This code is contributed by ghanshyampandey 
