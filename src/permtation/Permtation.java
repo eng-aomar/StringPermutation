@@ -40,6 +40,7 @@ class permtation {
         return factOfNumber;
     }
 // this function prints out all the possible permutation of a given string 
+
     public void getStringPermutations() {
         GetFirst(Indexes);
         while (this.HasNext()) {
