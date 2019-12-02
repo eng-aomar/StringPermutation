@@ -50,10 +50,7 @@ class permtation {
 
     // Initialize and output 
     // the first permutation 
-    public void GetFirst(int[] Indexes) {
-
-        // Allocate memory for Indexes array 
-        this.Indexes = new int[this.Arr.length];
+    private void GetFirst(int[] Indexes) {
 
         // Initialize the values in Index array 
         // from 0 to n - 1 
@@ -72,7 +69,7 @@ class permtation {
 
     // Function that returns true if it is 
     // possible to generate the next permutation 
-    public boolean HasNext() {
+    private boolean HasNext() {
 
         // When Increase is in the end of the array, 
         // it is not possible to have next one 
@@ -80,7 +77,7 @@ class permtation {
     }
 
     // Output the next permutation 
-    public void GetNext() {
+    private void GetNext() {
 
         // Increase is at the very beginning 
         if (this.Increase == 0) {

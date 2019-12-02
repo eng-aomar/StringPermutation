@@ -23,8 +23,10 @@ public class StringPermutation {
             perm.getStringPermutations();
             System.out.print("Would you like to continue?(y/n) ");
             String answer = scanner.nextLine();
+           
             if (answer.equalsIgnoreCase("N")) {
                 System.out.print("Thank you !!");
+                scanner.close();
                 break;
             }
 
