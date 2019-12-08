@@ -183,9 +183,15 @@ class permtation {
 
 	// Swap two values in the Indexes array
 	private void Swap(int src, int dest) {
-		int tmp = this.Indexes_array[src];
-		this.Indexes_array[src] = this.Indexes_array[dest];
-		this.Indexes_array[dest] = tmp;
+		
+		try {
+			int tmp = this.Indexes_array[src];
+			this.Indexes_array[src] = this.Indexes_array[dest];
+			this.Indexes_array[dest] = tmp;
+		} catch (ArrayIndexOutOfBoundsException   e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 
